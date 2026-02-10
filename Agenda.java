@@ -42,10 +42,22 @@ public class Agenda extends Application {
         Button btnGuardar = new Button("Guardar");
         Button btnEliminar = new Button("Eliminar");
         Button btnLimpiar = new Button("Limpiar");
+        Button btnModuloDirecciones = new Button("Módulo Direcciones (N:M)");
+        btnModuloDirecciones.setStyle("-fx-background-color: #d0f0c0;"); // Un colorcito para diferenciarlo
         
         Button btnTelefonos = new Button("Ver teléfonos");
         btnTelefonos.setDisable(true); 
 
+        
+        
+        btnModuloDirecciones.setOnAction(e -> {
+            VentanaDirecciones ventanaDir = new VentanaDirecciones();
+            ventanaDir.mostrar();
+        });
+
+        HBox buttonLayout = new HBox(10, btnGuardar, btnEliminar, btnLimpiar, btnTelefonos, btnModuloDirecciones);
+        
+        
         tabla.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 personaSeleccionada = newVal;
@@ -65,7 +77,6 @@ public class Agenda extends Application {
             }
         });
 
-        // BOTÓN GUARDAR
         btnGuardar.setOnAction(e -> {
             String nombre = txtNombre.getText();
             String direccion = txtDireccion.getText();
@@ -95,8 +106,6 @@ public class Agenda extends Application {
         btnLimpiar.setOnAction(e -> limpiarFormulario(btnTelefonos));
 
         HBox inputLayout = new HBox(10, txtNombre, txtDireccion);
-        
-        HBox buttonLayout = new HBox(10, btnGuardar, btnEliminar, btnLimpiar, btnTelefonos);
         
         VBox root = new VBox(15);
         root.setPadding(new Insets(20));
