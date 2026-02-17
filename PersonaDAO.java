@@ -4,9 +4,10 @@ import java.sql.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class PersonaDAO {
+public class PersonaDAO implements CrudDAO<Persona> {
 
-    public ObservableList<Persona> obtenerPersonas() {
+    @Override
+    public ObservableList<Persona> obtenerTodos() {
         ObservableList<Persona> lista = FXCollections.observableArrayList();
         String sql = "SELECT * FROM Personas";
 
@@ -21,12 +22,11 @@ public class PersonaDAO {
                     rs.getString("direccion")
                 ));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) { e.printStackTrace(); }
         return lista;
     }
 
+    @Override
     public void insertar(Persona p) {
         String sql = "INSERT INTO Personas (nombre, direccion) VALUES (?, ?)";
         try (Connection conn = ConexionDB.conectar();
@@ -36,11 +36,10 @@ public class PersonaDAO {
             pstmt.setString(2, p.getDireccion());
             pstmt.executeUpdate();
             
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) { e.printStackTrace(); }
     }
 
+    @Override
     public void actualizar(Persona p) {
         String sql = "UPDATE Personas SET nombre = ?, direccion = ? WHERE id = ?";
         try (Connection conn = ConexionDB.conectar();
@@ -51,11 +50,10 @@ public class PersonaDAO {
             pstmt.setInt(3, p.getId());
             pstmt.executeUpdate();
             
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) { e.printStackTrace(); }
     }
 
+    @Override
     public void eliminar(int id) {
         String sql = "DELETE FROM Personas WHERE id = ?";
         try (Connection conn = ConexionDB.conectar();
@@ -64,8 +62,6 @@ public class PersonaDAO {
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
             
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) { e.printStackTrace(); }
     }
 }
