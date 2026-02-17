@@ -8,7 +8,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-public class Agenda extends Application {
+    public class Agenda extends Application {
 
     private PersonaDAO dao = new PersonaDAO();
     
@@ -33,20 +33,17 @@ public class Agenda extends Application {
         colDir.setMinWidth(200);
 
         tabla.getColumns().addAll(colId, colNombre, colDir);
-        
-        cargarDatos(); 
-
+        cargarDatos();
         txtNombre.setPromptText("Nombre completo");
         txtDireccion.setPromptText("Dirección");
 
         Button btnGuardar = new Button("Guardar");
         Button btnEliminar = new Button("Eliminar");
         Button btnLimpiar = new Button("Limpiar");
-        Button btnModuloDirecciones = new Button("Módulo Direcciones (N:M)");
-        btnModuloDirecciones.setStyle("-fx-background-color: #d0f0c0;"); // Un colorcito para diferenciarlo
+        Button btnModuloDirecciones = new Button("Módulo Direcciones");
         
         Button btnTelefonos = new Button("Ver teléfonos");
-        btnTelefonos.setDisable(true); 
+        btnTelefonos.setDisable(true);
 
         
         
@@ -118,7 +115,7 @@ public class Agenda extends Application {
     }
 
     private void cargarDatos() {
-        tabla.setItems(dao.obtenerPersonas());
+        tabla.setItems(dao.obtenerTodos());
     }
 
     private void limpiarFormulario(Button btnTelefonos) {
